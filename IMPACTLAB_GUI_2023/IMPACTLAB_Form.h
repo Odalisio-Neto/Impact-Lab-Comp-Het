@@ -79,7 +79,7 @@ namespace IMPACTLABGUI2023 {
 			// 
 			// btopen
 			// 
-			this->btopen->Location = System::Drawing::Point(479, 569);
+			this->btopen->Location = System::Drawing::Point(232, 738);
 			this->btopen->Name = L"btopen";
 			this->btopen->Size = System::Drawing::Size(131, 49);
 			this->btopen->TabIndex = 0;
@@ -89,7 +89,7 @@ namespace IMPACTLABGUI2023 {
 			// 
 			// btapply
 			// 
-			this->btapply->Location = System::Drawing::Point(643, 569);
+			this->btapply->Location = System::Drawing::Point(396, 738);
 			this->btapply->Name = L"btapply";
 			this->btapply->Size = System::Drawing::Size(131, 49);
 			this->btapply->TabIndex = 1;
@@ -99,18 +99,21 @@ namespace IMPACTLABGUI2023 {
 			// pictureBox1
 			// 
 			this->pictureBox1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->pictureBox1->Location = System::Drawing::Point(385, 12);
+			this->pictureBox1->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->pictureBox1->Location = System::Drawing::Point(44, 24);
 			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(492, 483);
+			this->pictureBox1->Size = System::Drawing::Size(720, 694);
 			this->pictureBox1->TabIndex = 2;
 			this->pictureBox1->TabStop = false;
 			// 
 			// filter1
 			// 
 			this->filter1->AutoSize = true;
-			this->filter1->Location = System::Drawing::Point(948, 176);
+			this->filter1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->filter1->Location = System::Drawing::Point(799, 263);
 			this->filter1->Name = L"filter1";
-			this->filter1->Size = System::Drawing::Size(108, 20);
+			this->filter1->Size = System::Drawing::Size(151, 24);
 			this->filter1->TabIndex = 3;
 			this->filter1->Text = L"Aplicar filtro 1";
 			this->filter1->UseVisualStyleBackColor = true;
@@ -119,20 +122,24 @@ namespace IMPACTLABGUI2023 {
 			// filter3
 			// 
 			this->filter3->AutoSize = true;
-			this->filter3->Location = System::Drawing::Point(948, 304);
+			this->filter3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->filter3->Location = System::Drawing::Point(799, 513);
 			this->filter3->Name = L"filter3";
-			this->filter3->Size = System::Drawing::Size(108, 20);
+			this->filter3->Size = System::Drawing::Size(151, 24);
 			this->filter3->TabIndex = 4;
-			this->filter3->Text = L"Aplicar filtro 2";
+			this->filter3->Text = L"Aplicar filtro 3";
 			this->filter3->UseVisualStyleBackColor = true;
 			this->filter3->CheckedChanged += gcnew System::EventHandler(this, &IMPACTLAB_Form::filter3_CheckedChanged);
 			// 
 			// filter2
 			// 
 			this->filter2->AutoSize = true;
-			this->filter2->Location = System::Drawing::Point(948, 244);
+			this->filter2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->filter2->Location = System::Drawing::Point(799, 383);
 			this->filter2->Name = L"filter2";
-			this->filter2->Size = System::Drawing::Size(108, 20);
+			this->filter2->Size = System::Drawing::Size(151, 24);
 			this->filter2->TabIndex = 5;
 			this->filter2->Text = L"Aplicar filtro 2";
 			this->filter2->UseVisualStyleBackColor = true;
@@ -141,13 +148,14 @@ namespace IMPACTLABGUI2023 {
 			// IMPACTLAB_Form
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
-			this->ClientSize = System::Drawing::Size(1257, 668);
+			this->ClientSize = System::Drawing::Size(1003, 821);
 			this->Controls->Add(this->filter2);
 			this->Controls->Add(this->filter3);
 			this->Controls->Add(this->filter1);
 			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->btapply);
 			this->Controls->Add(this->btopen);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Name = L"IMPACTLAB_Form";
 			this->Text = L"IMPACTLAB PROJECT 2023";
 			this->Load += gcnew System::EventHandler(this, &IMPACTLAB_Form::IMPACTLAB_Form_Load);
