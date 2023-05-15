@@ -79,7 +79,7 @@ namespace IMPACTLABGUI2023 {
 			// 
 			// btopen
 			// 
-			this->btopen->Location = System::Drawing::Point(489, 501);
+			this->btopen->Location = System::Drawing::Point(479, 569);
 			this->btopen->Name = L"btopen";
 			this->btopen->Size = System::Drawing::Size(131, 49);
 			this->btopen->TabIndex = 0;
@@ -89,7 +89,7 @@ namespace IMPACTLABGUI2023 {
 			// 
 			// btapply
 			// 
-			this->btapply->Location = System::Drawing::Point(626, 501);
+			this->btapply->Location = System::Drawing::Point(643, 569);
 			this->btapply->Name = L"btapply";
 			this->btapply->Size = System::Drawing::Size(131, 49);
 			this->btapply->TabIndex = 1;
@@ -98,6 +98,7 @@ namespace IMPACTLABGUI2023 {
 			// 
 			// pictureBox1
 			// 
+			this->pictureBox1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->pictureBox1->Location = System::Drawing::Point(385, 12);
 			this->pictureBox1->Name = L"pictureBox1";
 			this->pictureBox1->Size = System::Drawing::Size(492, 483);
@@ -107,7 +108,7 @@ namespace IMPACTLABGUI2023 {
 			// filter1
 			// 
 			this->filter1->AutoSize = true;
-			this->filter1->Location = System::Drawing::Point(948, 143);
+			this->filter1->Location = System::Drawing::Point(948, 176);
 			this->filter1->Name = L"filter1";
 			this->filter1->Size = System::Drawing::Size(108, 20);
 			this->filter1->TabIndex = 3;
@@ -118,7 +119,7 @@ namespace IMPACTLABGUI2023 {
 			// filter3
 			// 
 			this->filter3->AutoSize = true;
-			this->filter3->Location = System::Drawing::Point(948, 330);
+			this->filter3->Location = System::Drawing::Point(948, 304);
 			this->filter3->Name = L"filter3";
 			this->filter3->Size = System::Drawing::Size(108, 20);
 			this->filter3->TabIndex = 4;
@@ -129,7 +130,7 @@ namespace IMPACTLABGUI2023 {
 			// filter2
 			// 
 			this->filter2->AutoSize = true;
-			this->filter2->Location = System::Drawing::Point(948, 242);
+			this->filter2->Location = System::Drawing::Point(948, 244);
 			this->filter2->Name = L"filter2";
 			this->filter2->Size = System::Drawing::Size(108, 20);
 			this->filter2->TabIndex = 5;
@@ -139,9 +140,8 @@ namespace IMPACTLABGUI2023 {
 			// 
 			// IMPACTLAB_Form
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
-			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1171, 602);
+			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
+			this->ClientSize = System::Drawing::Size(1257, 668);
 			this->Controls->Add(this->filter2);
 			this->Controls->Add(this->filter3);
 			this->Controls->Add(this->filter1);
@@ -173,10 +173,10 @@ namespace IMPACTLABGUI2023 {
 				try {
 
 					Image^ image1;
-					// Retrieve the image.
-					
-					// Set the PictureBox to display the image.
-					pictureBox1->Image = gcnew Bitmap(ofd->FileName, true);
+
+					//Setting image to pictureBox1
+					pictureBox1->BackgroundImageLayout = ImageLayout::Stretch;
+					pictureBox1->BackgroundImage = gcnew Bitmap(ofd->FileName, true);
 				}
 				catch (ArgumentException^)
 				{
@@ -194,15 +194,45 @@ namespace IMPACTLABGUI2023 {
 		}
 		private: System::Void filter1_CheckedChanged(System::Object^ sender, System::EventArgs^ e) 
 		{
+			Image^ image = pictureBox1->BackgroundImage;
 
+			if (filter1->Checked)
+			{
+				//apply filter
+
+			}
+			else {
+				//remove filter
+
+			}
 		}
 		private: System::Void filter2_CheckedChanged(System::Object^ sender, System::EventArgs^ e) 
 		{
+			Image^ image = pictureBox1->BackgroundImage;
 
+			if (filter2->Checked)
+			{
+				//apply filter
+				
+			}
+			else {
+				//remove filter
+
+			}
 		}
 		private: System::Void filter3_CheckedChanged(System::Object^ sender, System::EventArgs^ e) 
 		{
+			Image^ image = pictureBox1->BackgroundImage;
 
+			if (filter3->Checked)
+			{
+				//apply filter
+
+			}
+			else {
+				//remove filter
+
+			}
 		}
 };
 }
