@@ -106,7 +106,6 @@ namespace IMPACTLABGUI2023 {
 			this->pictureBox1->Size = System::Drawing::Size(630, 600);
 			this->pictureBox1->TabIndex = 2;
 			this->pictureBox1->TabStop = false;
-			this->pictureBox1->Click += gcnew System::EventHandler(this, &IMPACTLAB_Form::pictureBox1_Click);
 			// 
 			// filter1
 			// 
@@ -119,7 +118,6 @@ namespace IMPACTLABGUI2023 {
 			this->filter1->TabIndex = 3;
 			this->filter1->Text = L"Aplicar filtro 1";
 			this->filter1->UseVisualStyleBackColor = true;
-			this->filter1->CheckedChanged += gcnew System::EventHandler(this, &IMPACTLAB_Form::filter1_CheckedChanged);
 			// 
 			// filter3
 			// 
@@ -132,7 +130,6 @@ namespace IMPACTLABGUI2023 {
 			this->filter3->TabIndex = 4;
 			this->filter3->Text = L"Aplicar filtro 3";
 			this->filter3->UseVisualStyleBackColor = true;
-			this->filter3->CheckedChanged += gcnew System::EventHandler(this, &IMPACTLAB_Form::filter3_CheckedChanged);
 			// 
 			// filter2
 			// 
@@ -145,7 +142,6 @@ namespace IMPACTLABGUI2023 {
 			this->filter2->TabIndex = 5;
 			this->filter2->Text = L"Aplicar filtro 2";
 			this->filter2->UseVisualStyleBackColor = true;
-			this->filter2->CheckedChanged += gcnew System::EventHandler(this, &IMPACTLAB_Form::filter2_CheckedChanged);
 			// 
 			// IMPACTLAB_Form
 			// 
@@ -340,25 +336,6 @@ namespace IMPACTLABGUI2023 {
 			return true;
 		}
 
-		bool mirrorImage(Bitmap^ img)
-		{
-			int width = img->Width;
-			int height = img->Height;
-
-			for (int i = 0; i < width; i++)
-			{
-				for (int j = 0; j < height ; j++)
-				{
-					//Get the pixel value
-					Color p = img->GetPixel(i, j);
-					Color mirror = img->GetPixel(width - i - 1,j);
-					img->SetPixel(i, j, mirror);
-				}
-			}
-
-			return true;
-
-		}
 
 		bool brilho(Bitmap^ img) 
 		{
@@ -440,68 +417,31 @@ namespace IMPACTLABGUI2023 {
 		
 		}
 
+		private: System::Void btapply_Click(System::Object^ sender, System::EventArgs^ e) {
 
-		private: System::Void filter1_CheckedChanged(System::Object^ sender, System::EventArgs^ e) 
-		{
+			if (filter1->Checked)
+			{
+			   Bitmap^ image = gcnew Bitmap(pictureBox1->BackgroundImage);
+			   img_2_sepia(image);
+			   pictureBox1->BackgroundImage = image;
 
-		}
-		private: System::Void filter2_CheckedChanged(System::Object^ sender, System::EventArgs^ e) 
-		{
-			Image^ image = pictureBox1->BackgroundImage;
-
+			}
 			if (filter2->Checked)
 			{
-				//apply filter
-				
-			}
-			else {
-				//remove filter
+				Bitmap^ image = gcnew Bitmap(pictureBox1->BackgroundImage);
+				negative(image);
+				pictureBox1->BackgroundImage = image;
 
 			}
-		}
-		private: System::Void filter3_CheckedChanged(System::Object^ sender, System::EventArgs^ e) 
-		{
-			Image^ image = pictureBox1->BackgroundImage;
-
 			if (filter3->Checked)
 			{
-				//apply filter
 
-			}
-			else {
-				//remove filter
+				Bitmap^ image = gcnew Bitmap(pictureBox1->BackgroundImage);
+				brilho(image);
+				pictureBox1->BackgroundImage = image;
 
 			}
 		}
-private: System::Void pictureBox1_Click(System::Object^ sender, System::EventArgs^ e) {
-
-}
-
-private: System::Void btapply_Click(System::Object^ sender, System::EventArgs^ e) {
-
-	if (filter1->Checked)
-	{
-	   Bitmap^ image = gcnew Bitmap(pictureBox1->BackgroundImage);
-	   img_2_sepia(image);
-	   pictureBox1->BackgroundImage = image;
-
-	}
-	if (filter2->Checked)
-	{
-		Bitmap^ image = gcnew Bitmap(pictureBox1->BackgroundImage);
-		negative(image);
-		pictureBox1->BackgroundImage = image;
-
-	}
-	if (filter3->Checked)
-	{
-
-		Bitmap^ image = gcnew Bitmap(pictureBox1->BackgroundImage);
-		brilho(image);
-		pictureBox1->BackgroundImage = image;
-
-	}
-}
 };
 }
 
