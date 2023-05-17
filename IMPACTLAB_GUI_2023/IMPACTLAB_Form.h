@@ -79,7 +79,7 @@ namespace IMPACTLABGUI2023 {
 			// 
 			// btopen
 			// 
-			this->btopen->Location = System::Drawing::Point(232, 738);
+			this->btopen->Location = System::Drawing::Point(160, 643);
 			this->btopen->Name = L"btopen";
 			this->btopen->Size = System::Drawing::Size(131, 49);
 			this->btopen->TabIndex = 0;
@@ -89,12 +89,13 @@ namespace IMPACTLABGUI2023 {
 			// 
 			// btapply
 			// 
-			this->btapply->Location = System::Drawing::Point(396, 738);
+			this->btapply->Location = System::Drawing::Point(433, 643);
 			this->btapply->Name = L"btapply";
 			this->btapply->Size = System::Drawing::Size(131, 49);
 			this->btapply->TabIndex = 1;
 			this->btapply->Text = L"Apply Filters";
 			this->btapply->UseVisualStyleBackColor = true;
+			this->btapply->Click += gcnew System::EventHandler(this, &IMPACTLAB_Form::btapply_Click);
 			// 
 			// pictureBox1
 			// 
@@ -102,9 +103,10 @@ namespace IMPACTLABGUI2023 {
 			this->pictureBox1->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->pictureBox1->Location = System::Drawing::Point(44, 24);
 			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(720, 694);
+			this->pictureBox1->Size = System::Drawing::Size(630, 600);
 			this->pictureBox1->TabIndex = 2;
 			this->pictureBox1->TabStop = false;
+			this->pictureBox1->Click += gcnew System::EventHandler(this, &IMPACTLAB_Form::pictureBox1_Click);
 			// 
 			// filter1
 			// 
@@ -113,7 +115,7 @@ namespace IMPACTLABGUI2023 {
 				static_cast<System::Byte>(0)));
 			this->filter1->Location = System::Drawing::Point(799, 263);
 			this->filter1->Name = L"filter1";
-			this->filter1->Size = System::Drawing::Size(151, 24);
+			this->filter1->Size = System::Drawing::Size(129, 21);
 			this->filter1->TabIndex = 3;
 			this->filter1->Text = L"Aplicar filtro 1";
 			this->filter1->UseVisualStyleBackColor = true;
@@ -126,7 +128,7 @@ namespace IMPACTLABGUI2023 {
 				static_cast<System::Byte>(0)));
 			this->filter3->Location = System::Drawing::Point(799, 513);
 			this->filter3->Name = L"filter3";
-			this->filter3->Size = System::Drawing::Size(151, 24);
+			this->filter3->Size = System::Drawing::Size(129, 21);
 			this->filter3->TabIndex = 4;
 			this->filter3->Text = L"Aplicar filtro 3";
 			this->filter3->UseVisualStyleBackColor = true;
@@ -139,7 +141,7 @@ namespace IMPACTLABGUI2023 {
 				static_cast<System::Byte>(0)));
 			this->filter2->Location = System::Drawing::Point(799, 383);
 			this->filter2->Name = L"filter2";
-			this->filter2->Size = System::Drawing::Size(151, 24);
+			this->filter2->Size = System::Drawing::Size(129, 21);
 			this->filter2->TabIndex = 5;
 			this->filter2->Text = L"Aplicar filtro 2";
 			this->filter2->UseVisualStyleBackColor = true;
@@ -148,7 +150,7 @@ namespace IMPACTLABGUI2023 {
 			// IMPACTLAB_Form
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
-			this->ClientSize = System::Drawing::Size(1003, 821);
+			this->ClientSize = System::Drawing::Size(1003, 741);
 			this->Controls->Add(this->filter2);
 			this->Controls->Add(this->filter3);
 			this->Controls->Add(this->filter1);
@@ -179,9 +181,6 @@ namespace IMPACTLABGUI2023 {
 
 				//pictureBox1->BackgroundImage = stream->
 				try {
-
-					Image^ image1;
-
 					//Setting image to pictureBox1
 					pictureBox1->BackgroundImageLayout = ImageLayout::Stretch;
 					pictureBox1->BackgroundImage = gcnew Bitmap(ofd->FileName, true);
@@ -200,19 +199,199 @@ namespace IMPACTLABGUI2023 {
 		{
 
 		}
+
+	
+		bool negative(Bitmap^ img)
+		{
+			int width = img->Width;
+			int height = img->Height;
+
+			for (int i = 0; i < width; i++)
+			{
+				for (int j = 0; j < height; j++)
+				{
+					//Get the pixel value
+					Color p = img->GetPixel(i, j);
+					int a = p.A;
+					int r = p.R;
+					int g = p.G;
+					int b = p.B;
+
+					//find negative value
+					r = 255 - r;
+					g = 255 - g;
+					b = 255 - b;
+					//Set new pixel
+					Color gray = Color::FromArgb(a, r, g, b);
+					img->SetPixel(i, j, gray);
+				}
+			}
+
+			return true;
+		}
+
+		bool img_2_sepia(Bitmap^ img)
+		{
+			int width = img->Width;
+			int height = img->Height;
+			for (int i = 0; i < width; i++)
+			{
+				for (int j = 0; j < height; j++)
+				{
+					//Get the pixel value
+					Color p = img->GetPixel(i, j);
+					int a = p.A;
+					int r = p.R;
+					int g = p.G;
+					int b = p.B;
+
+					//Calculate values:
+					int tr = (int)(0.393 * r + 0.769 * g + 0.189 * b);
+					int tg = (int)(0.349 * r + 0.686 * g + 0.168 * b);
+					int tb = (int)(0.272 * r + 0.534 * g + 0.131 * b);
+
+					//set new RGB value
+					if (tr > 255)
+					{
+						r = 255;
+					}
+					else
+					{
+						r = tr;
+					}
+
+					if (tg > 255)
+					{
+						g = 255;
+					}
+					else
+					{
+						g = tg;
+					}
+
+					if (tb > 255)
+					{
+						b = 255;
+					}
+					else
+					{
+						b = tb;
+					}
+
+					//set the new RGB value in image pixel
+					img->SetPixel(i, j, Color::FromArgb(a, r, g, b));
+				}
+			}
+			return true;
+		}
+
+		bool sepia_2_img(Bitmap^ img)
+		{
+			int width = img->Width;
+			int height = img->Height;
+			for (int i = 0; i < width; i++)
+			{
+				for (int j = 0; j < height; j++)
+				{
+					//Get the pixel value
+					Color p = img->GetPixel(i, j);
+					int a = p.A;
+					int r = p.R;
+					int g = p.G;
+					int b = p.B;
+
+					//Calculate values:
+					int tr = (int)(1279.727*r - 190.083 * g - 1867.769 * b);
+					int tg = (int)(1545.455 * r +  619.834 * g - 5735.537 * b);
+					int tb = (int)(10057.851 * b - 3818.182 * r - 520.661* g );
+
+					//set new RGB value
+					if (tr > 255)
+					{
+						r = 255;
+					}
+					else
+					{
+						r = tr;
+					}
+
+					if (tg > 255)
+					{
+						g = 255;
+					}
+					else
+					{
+						g = tg;
+					}
+
+					if (tb < 0)
+					{
+						b = 255;
+					}
+					else
+					{
+						b = tb;
+					}
+
+					//set the new RGB value in image pixel
+					img->SetPixel(i, j, Color::FromArgb(a, r, g, b));
+				}
+			}
+			return true;
+		}
+
+		bool mirrorImage(Bitmap^ img)
+		{
+			int width = img->Width;
+			int height = img->Height;
+
+			for (int i = 0; i < width; i++)
+			{
+				for (int j = 0; j < height ; j++)
+				{
+					//Get the pixel value
+					Color p = img->GetPixel(i, j);
+					Color mirror = img->GetPixel(width - i - 1,j);
+					img->SetPixel(i, j, mirror);
+				}
+			}
+
+			return true;
+
+		}
+
+		bool grayscale(Bitmap^ img)
+		{
+			int width = img->Width;
+			int height = img->Height;
+
+			for (int i = 0; i < width; i++)
+			{
+				for (int j = 0; j < height; j++)
+				{
+					//Get the pixel value
+					Color p = img->GetPixel(i, j);
+					int a = p.A;
+					int r = p.R;
+					int g = p.G;
+					int b = p.B;
+
+					//Average
+					int avg = (r + g + b) / 3;
+					//Set new pixel
+					Color gray = Color::FromArgb(a, avg, avg, avg);
+					img->SetPixel(i, j, gray);					
+				}
+			}
+
+			return true;
+		
+		}
+
+
 		private: System::Void filter1_CheckedChanged(System::Object^ sender, System::EventArgs^ e) 
 		{
-			Image^ image = pictureBox1->BackgroundImage;
 
-			if (filter1->Checked)
-			{
-				//apply filter
-
-			}
-			else {
-				//remove filter
-
-			}
 		}
 		private: System::Void filter2_CheckedChanged(System::Object^ sender, System::EventArgs^ e) 
 		{
@@ -242,5 +421,31 @@ namespace IMPACTLABGUI2023 {
 
 			}
 		}
+private: System::Void pictureBox1_Click(System::Object^ sender, System::EventArgs^ e) {
+
+}
+
+private: System::Void btapply_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	if (filter1->Checked)
+	{
+	   Bitmap^ image = gcnew Bitmap(pictureBox1->BackgroundImage);
+	   img_2_sepia(image);
+	   pictureBox1->BackgroundImage = image;
+
+	}
+	if (filter2->Checked)
+	{
+		Bitmap^ image = gcnew Bitmap(pictureBox1->BackgroundImage);
+		negative(image);
+		pictureBox1->BackgroundImage = image;
+
+	}
+	if (filter3->Checked)
+	{
+
+	}
+}
 };
 }
+
