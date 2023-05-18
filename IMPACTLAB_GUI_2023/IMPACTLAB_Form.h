@@ -173,7 +173,7 @@ namespace IMPACTLABGUI2023 {
 			OpenFileDialog^ ofd = gcnew OpenFileDialog();
 
 			ofd->InitialDirectory = "c:\\";
-			ofd->Filter = "jpeg files (.jpeg) | *.jpeg | png files (.png) | *.png";
+			ofd->Filter = "jpeg files (.jpeg) | *.jpeg | png files (.png) | *.png | jpg files (.jpg) | *.jpg";
 			ofd->RestoreDirectory = true;
 			
 			if (ofd->ShowDialog() == System::Windows::Forms::DialogResult::OK)
@@ -360,6 +360,58 @@ namespace IMPACTLABGUI2023 {
 
 		}
 
+		bool brilho(Bitmap^ img) 
+		{
+			int width = img->Width;
+			int height = img->Height;
+			float factor = 0.15f;
+
+			for (int i = 0; i < width; i++)
+			{
+				for (int j = 0; j < height; j++)
+				{
+					//Get the pixel value
+					Color p = img->GetPixel(i, j);
+					int a = p.A;
+
+					int tmp = p.R + (p.R * factor);
+					int r;
+					
+					if (tmp > 255) {
+						r = 255;
+					}
+					else {
+						r = tmp;
+					}
+
+					tmp = p.G + (p.G * factor);
+					int g;
+
+					if (tmp > 255) {
+						g = 255;
+					}
+					else {
+						g = tmp;
+					}
+
+					tmp = p.B + (p.B * factor);
+					int b;
+
+					if (tmp > 255) {
+						b = 255;
+					}
+					else {
+						b = tmp;
+					}
+
+
+					img->SetPixel(i, j, Color::FromArgb(a,r,g,b));
+
+				}
+			}
+			return true;
+		}
+
 		bool grayscale(Bitmap^ img)
 		{
 			int width = img->Width;
@@ -443,6 +495,10 @@ private: System::Void btapply_Click(System::Object^ sender, System::EventArgs^ e
 	}
 	if (filter3->Checked)
 	{
+
+		Bitmap^ image = gcnew Bitmap(pictureBox1->BackgroundImage);
+		brilho(image);
+		pictureBox1->BackgroundImage = image;
 
 	}
 }
